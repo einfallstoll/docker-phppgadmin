@@ -44,7 +44,7 @@ Trying the browser on url http://localhost/phppgadmin.
 #### Start the container and keep control
 The command above starts the container in deamon mode (-d) and runs in the background. If you want to start it by yourself just to see what happens use this command:
 
-	$ docker run -i -t -p 80 -e APACHE_SERVERNAME=jacksoncage.se -e POSTGRES_HOST=localhost -e POSTGRES_PORT=5432 einfallstoll/phppgadmin bash
+	$ docker run -i -t -p 80 -e APACHE_SERVERNAME=docker.local -e POSTGRES_HOST=localhost -e POSTGRES_PORT=5432 einfallstoll/phppgadmin bash
 
 Notice the two changes made here, first we replaced the deamon switch (-d) with the tty switch (-t) which pipes the std in and std out to your terminal.
 
