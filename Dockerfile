@@ -2,15 +2,14 @@
 #
 # docker run -rm -i -d \
 #       -p 80 \
-#       -e APACHE_SERVERNAME=jacksoncage.se  \
+#       -e APACHE_SERVERNAME=example.com  \
 #       -e POSTGRES_HOST=localhost \
 #       -e POSTGRES_PORT=5432 \
 #       -v /etc/localtime:/etc/localtime \
-#       jacksoncage/phppgadmin
+#       einfallstoll/phppgadmin
 
 FROM        debian:jessie
-MAINTAINER  Love Nyberg "love.nyberg@lovemusic.se"
-ENV         REFRESHED_AT 2016-07-22
+MAINTAINER  Fabio Poloni "fabio@app-roved.com"
 
 # Update the package repository
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq && \
@@ -35,8 +34,14 @@ COPY ./phppgadmin.conf /etc/apache2/conf-available/phppgadmin.conf
 COPY ./config.inc.php /usr/share/phppgadmin/conf/config.inc.php
 COPY ./config.inc.php /etc/phppgadmin/config.inc.php
 RUN sed -i 's/variables_order = "GPCS"/variables_order = "EGPCS"/g' /etc/php5/apache2/php.ini
+
 # Fix phppgadmin's code which produces too many errors in apache's error.log
 RUN sed -i "s/\$plugins = \$conf\['plugins'\]\;/\$plugins = \!empty(\$conf\['plugins'\])\?\$conf\['plugins'\]:\[\]\;/g" /usr/share/phppgadmin/classes/PluginManager.php
+
+# Include auto-login
+COPY ./login.inc.php /var/tmp/login.inc.php
+COPY inject-login.sh /inject-login.sh
+RUN ["bash", "inject-login.sh"]
 
 # Clean image
 RUN apt-get -yqq clean && \

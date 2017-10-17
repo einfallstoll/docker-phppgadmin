@@ -1,7 +1,7 @@
 Automated build of phpPgAdmin with Docker
 ===========
 
-This is a fork of [jacksoncage's phppgadmin ](https://github.com/jacksoncage/dockerfiles/tree/master/phppgadmin) that has been fixed by [arymkus](https://github.com/jacksoncage/dockerfiles/pulls/arymkus).
+This is a fork of [jacksoncage's phppgadmin ](https://github.com/jacksoncage/dockerfiles/tree/master/phppgadmin) that has been fixed by [arymkus](https://github.com/jacksoncage/dockerfiles/pulls/arymkus) and [einfallstoll](https://github.com/einfallstoll/docker-phppgadmin).
 
 ### Apache and Postgres environment variables
 Apache and Postgres will make of the following environment variables.
@@ -9,6 +9,8 @@ Apache and Postgres will make of the following environment variables.
 	POSTGRES_HOST=localhost
 	POSTGRES_PORT=5432
 	POSTGRES_DEFAULTDB=defaultdb
+    POSTGRES_DEFAULTUSER=someuser
+    POSTRGES_DEFAULTPASSWORD=somepassword
 	APACHE_SERVERNAME=localhost
 	APACHE_SERVERADMIN=admin@localhost
 	APACHE_DOCUMENTROOT=/var/www
@@ -62,4 +64,4 @@ Now go to `<your container's ip>:<container's port>` in your browser
 ### Stop the container
 Stopping a running container is possible via the docker api. If only one instance of this container is running this command will stop it:
 
-	$ docker stop `docker ps |grep einfallstoll/phppgadmin |cut -d\  -f1`
+	$ docker stop `docker ps | grep einfallstoll/phppgadmin | cut -d\  -f1`

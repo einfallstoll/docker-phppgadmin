@@ -30,6 +30,9 @@
 	// For a PostgreSQL 8.1+ server, you can set this to 'postgres'.
 	$conf['servers'][0]['defaultdb'] = $_ENV["POSTGRES_DEFAULTDB"];
 
+   $conf['servers'][0]['default_username'] = $_ENV["POSTGRES_DEFAULTUSER"];
+   $conf['servers'][0]['default_password'] = $_ENV["POSTGRES_DEFAULTPASSWORD"];    
+
 	// Specify the path to the database dump utilities for this server.
 	// You can set these to '' if no dumper is available.
 	$conf['servers'][0]['pg_dump_path'] = '/usr/bin/pg_dump';
